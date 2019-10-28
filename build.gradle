@@ -1,0 +1,59 @@
+description = "tapestrytest application"
+
+apply plugin: "war"
+apply plugin: "java"
+apply plugin: "eclipse"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+group = "com.reged"
+version = "0.0.1-SNAPSHOT"
+
+repositories {
+    mavenLocal()
+
+    mavenCentral()
+
+    // All things JBoss/Hibernate
+    maven {
+        name "JBoss"
+        url "http://repository.jboss.org/nexus/content/groups/public/"
+    }
+        
+
+    // For access to Apache Staging (Preview) packages
+    maven {
+        name "Apache Staging"
+        url "https://repository.apache.org/content/groups/staging"
+    }
+}
+
+// This simulates Maven's "provided" scope, until it is officially supported by Gradle
+// See http://jira.codehaus.org/browse/GRADLE-784
+
+dependencies {
+
+    compile "org.apache.tapestry:tapestry-core:5.4.5"
+
+    // Uncomment this to add support for file uploads:
+    // compile "org.apache.tapestry:tapestry-upload:5.4.5"
+
+    // CoffeeScript & Less support, plus resource minification:
+    compile "org.apache.tapestry:tapestry-webresources:5.4.5"
+
+    testCompile "org.apache.tapestry:tapestry-test:5.4.5"
+
+    // Log implementation choose one:
+    // Log4j 1.x
+    runtime "log4j:log4j:1.2.17"
+    runtime "org.slf4j:slf4j-log4j12:1.7.19"
+    // Logback
+    // runtime "ch.qos.logback:logback-classic:1.0.13"
+
+    compileOnly "javax.servlet:servlet-api:2.5"
+}
+
+wrapper {
+    gradleVersion = '5.4.1'
+}
